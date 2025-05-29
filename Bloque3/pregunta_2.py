@@ -32,9 +32,9 @@ def edo2(p, q, r, a, b, y0, yn, h):
 
     for i in range(1, n):
         xi = x[i]
-        A[i-1] = 1 - h*p(xi)/2
-        B[i-1] = -2 + h**2*q(xi)
-        C[i-1] = 1 + h*p(xi)/2
+        A[i-1] = -1 - h*p(xi)/2
+        B[i-1] = 2 + h**2*q(xi)
+        C[i-1] =- 1 + h*p(xi)/2
         D[i-1] = -h**2*r(xi)
 
     D[0] -= A[0]*y0
@@ -45,23 +45,26 @@ def edo2(p, q, r, a, b, y0, yn, h):
     return x, y
 
 # Validación con problema especificado
-p = lambda x: 1/x
-q = lambda x: (1/(4*x**2)) - 1
-r = lambda x: 0
+if __name__ == "__main__":
+    # Validación con problema especificado
+    p = lambda x: -1/x
+    q = lambda x: (1/(4*x**2)) - 1
+    r = lambda x: 0
 
-h_vals = [1, 0.5, 0.2, 0.1, 0.01]
-x_exact = np.linspace(1, 6, 1000)
-y_exact = np.sin(6 - x_exact) / (np.sin(5) * np.sqrt(x_exact))
+    h_vals = [1, 0.5, 0.2, 0.1, 0.01]
+    x_exact = np.linspace(1, 6, 1000)
+    y_exact = np.sin(6 - x_exact) / (np.sin(5) * np.sqrt(x_exact))
 
-for h in h_vals:
-    x_num, y_num = edo2(p, q, r, 1, 6, 1, 0, h)
-    plt.plot(x_num, y_num, label=f'h={h}')
+    for h in h_vals:
+        x_num, y_num = edo2(p, q, r, 1, 6, 1, 0, h)
+        plt.plot(x_num, y_num, label=f'h={h}')
 
-plt.plot(x_exact, y_exact, 'k', label='Exacta', linewidth=2)
-plt.legend()
-plt.title('Aproximación por diferencias finitas')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.grid(True)
-plt.show()
+    plt.plot(x_exact, y_exact, 'k', label='Exacta', linewidth=2)
+    plt.legend()
+    plt.title('Aproximación por diferencias finitas')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.grid(True)
+    plt.show()
+
 
