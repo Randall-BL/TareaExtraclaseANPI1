@@ -3,6 +3,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def thomas_algorithm(a, b, c, d):
+    """
+    thomas_algorithm: Resuelve un sistema de ecuaciones lineales tridiagonal.
+
+    Este algoritmo es una aplicación de la eliminación gaussiana optimizada
+    para sistemas tridiagonales.
+
+    Parámetros:
+        a :  Diagonal inferior de la matriz tridiagonal (tamaño n-1).
+        b :  Diagonal principal de la matriz tridiagonal (tamaño n).
+        c :  Diagonal superior de la matriz tridiagonal (tamaño n-1).
+        d :  Vector del lado derecho del sistema de ecuaciones (tamaño n).
+
+    Retorna:
+        x :  Vector solución del sistema de ecuaciones (tamaño n).
+    """
     n = len(d)
     c_prime = np.zeros(n-1)
     d_prime = np.zeros(n)
@@ -23,6 +38,27 @@ def thomas_algorithm(a, b, c, d):
     return x
 
 def edo2(p, q, r, a, b, y0, yn, h):
+    """
+    edo2: Resuelve una Ecuación Diferencial Ordinaria (EDO) lineal de segundo orden
+          con condiciones de frontera utilizando el método de diferencias finitas.
+
+    La EDO tiene la forma: y'' + p(x)y' + q(x)y = r(x)
+    Las condiciones de frontera son y(a_interval) = y0, y(b_interval) = yn.
+
+    Parámetros:
+        p : function, Coeficiente de y' en la EDO.
+        q : function, Coeficiente de y en la EDO.
+        r : function, Término independiente de la EDO.
+        a_interval : float, Límite inferior del intervalo de la solución.
+        b_interval : float, Límite superior del intervalo de la solución.
+        y0 : float, Condición de frontera en x = a_interval.
+        yn : float, Condición de frontera en x = b_interval.
+        h : float, Tamaño del paso para la discretización.
+
+    Retorna:
+        x_points : numpy.ndarray, Puntos x donde se calcula la solución.
+        y_solution : numpy.ndarray, Solución numérica y(x) en los puntos x_points.
+    """
     n = int((b - a) / h)
     x = np.linspace(a, b, n+1)
     A = np.zeros(n-1)
