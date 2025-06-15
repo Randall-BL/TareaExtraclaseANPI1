@@ -149,7 +149,6 @@ def cuad_gauss_iter(f, a, b, k, tol=1e-8, max_n=1000000):
     Sn = cuad_gauss_comp(f, a, b, k, n) # Usa la compuesta para hacer calculos iterativos
     while n <= max_n:
         n += 1
-        print(n)
         Sn1 = cuad_gauss_comp(f, a, b, k, n)
         if abs(Sn1 - Sn) < tol:
             return Sn1
