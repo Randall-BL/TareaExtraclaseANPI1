@@ -70,7 +70,10 @@ function err = cota_error_simpson(fsym, a, b, n)
   %
   % Retorna:
   % err (float): La cota de error para el método de Simpson.
+  if mod(n, 2) ~= 0
+    error('Simpson requiere un número par de subintervalos');
+  end
   dmax = max_abs_deriv(fsym, a, b, 4);  % Cuarta derivada
-  err = ((b - a)^5 / (180 * n^4)) * dmax;
+  err = ((b - a)^5 / (2880)) * dmax;
 endfunction
 
